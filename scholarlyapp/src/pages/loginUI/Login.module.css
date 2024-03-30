@@ -1,0 +1,100 @@
+.loginWrapper{
+    background: url(../assets/LoginBC.jpg) no-repeat center center fixed; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width:100vw;
+    height:100vh;
+    
+}
+.loginBox {
+    position: absolute;
+    top: 50%;
+    left: 20%; 
+    transform: translateY(-50%); /* This will vertically center the box */
+    background-color: rgb(255, 255, 255);
+    border-radius: 30px;
+    border-color: rgb(0, 0, 0);
+    border-width: 2px;
+    height: 700px;
+    width: 500px;
+    text-align: center;
+    border-style: solid;
+}
+
+.loginTextContainer{
+    width: 200px;
+    text-align: center;
+    height: 100px;
+    align-self: center;
+    margin-top: 20px;
+    padding-left: 150px;
+    padding-right: 100px;
+}
+.loginTextTitle{
+    justify-content:center;
+    font-family: Inknut;
+    font-size: 50px;
+    margin: 0px;
+    margin-top: 15px;
+    color: rgb(141, 49, 180);
+}
+.loginText{
+    justify-content:center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 40px;
+    margin: 0px;
+}
+.loginImg{
+    height: 150px;
+}
+.inputBox{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    padding: 15px;
+    border-width: 3px;
+    border-color: black;
+}
+.loginButton{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 28px;
+    border-radius: 8px;
+    padding: 8px;
+    border-width: 3px;
+    border-color: black;
+    background-color: rgb(141, 49, 180);
+}
+.registerButton{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    text-decoration: underline;
+    margin: 5px;
+}
+.registerText{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    margin-top: 30px;
+    margin-bottom: 0px;
+}
+.returnToLoginButton{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    margin-top: 30px;
+}
+
+  html, body {
+    height: 100%;
+    margin:0;
+  }
+
+   @font-face {
+    font-family: Inknut;
+    src: url(../fonts/InknutAntiqua-SemiBold.ttf);
+  }
+  /*
+  @font-face {
+    font-family: NotoSans;
+    src: url(../fonts/NotoSans.ttf);
+  } */
