@@ -5,7 +5,33 @@ function Login () {
 
 
   const loginFunction = () => {
+    const inputtedUsername = document.getElementById('logUsername').value;
+    const inputtedPassword = document.getElementById('logPassword').value;
 
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    const raw = JSON.stringify({
+      "user_name": inputtedUsername,
+      "password": inputtedPassword
+    });
+    
+    const requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+    
+    fetch("http://localhost:8000/api/users/login", requestOptions)
+      .then((response) => response.status)
+      .then((result) => {
+        if(result === 200){
+          localStorage.setItem("username",inputtedUsername);
+        window.location.replace("../");
+        }
+      })
+      .catch((error) => console.error(error));
     
 }
  
