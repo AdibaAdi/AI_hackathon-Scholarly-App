@@ -1,0 +1,111 @@
+.upload-container {
+  background-image: url(./uploadBackground.jpg);
+  background-size: cover;
+  background-position: center;
+  position: fixed; /* Make the position fixed */
+  top: 0; /* Start from the top edge of the viewport */
+  right: 0; 
+  bottom: 0; 
+  left: 0; 
+  padding: 40px;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  z-index: -1; /* Ensure it stays behind other content */
+}
+
+/* Add this to ensure the content is positioned above the background */
+body, html {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  justify-content: center; 
+  height: 100vh; 
+  text-align: center; 
+}
+
+.header {
+  margin-bottom: 20px; 
+}
+
+.upload-section {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 100px; 
+  border-radius: 10px;
+  display: flex; 
+  flex-direction: column; 
+  align-items: center;
+  justify-content: center; 
+  max-width: 500px;
+  width: 100%; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  transition: transform 0.3s ease; 
+}
+
+.upload-section:hover {
+  transform: scale(1.05);
+}
+  
+.upload-section label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.upload-section input[type="file"] {
+  margin-bottom: 20px;
+}
+
+.upload-section button {
+  background-color: #5c4ac7;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.upload-section button:hover {
+  background-color: #4a3b99;
+  transform: scale(1.1); 
+}
+
+
+label[for="resume-upload"] {
+  font-size: 26px;
+}
+
+
+input[type="file"]#resume-upload {
+  font-size: 20px;
+  padding: 10px 15px;
+  margin: 20px 0;
+}
+
+button {
+  font-size: 20px;
+  padding: 15px 30px;
+  height: 50px;
+  width: 150px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4a3b99;
+}
+
+.headerTitle1 {
+  font-size: 36px; /* Adjust the size as needed */
+}
+
+.secondaryTitle2 {
+  font-size: 1.5em; /* Adjust the size as needed */
+}
