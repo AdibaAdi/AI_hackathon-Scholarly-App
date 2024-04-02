@@ -1,111 +1,150 @@
-.upload-container {
-  background-image: url(./uploadBackground.jpg);
-  background-size: cover;
-  background-position: center;
-  position: fixed; /* Make the position fixed */
-  top: 0; /* Start from the top edge of the viewport */
-  right: 0; 
-  bottom: 0; 
-  left: 0; 
-  padding: 40px;
-  color: #333;
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  z-index: -1; /* Ensure it stays behind other content */
-}
-
-/* Add this to ensure the content is positioned above the background */
 body, html {
-  width: 100%;
-  height: 100%;
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
+  background-image: url('./background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-.upload-container {
+.container {
   display: flex;
-  flex-direction: column; 
-  align-items: center; 
-  justify-content: center; 
-  height: 100vh; 
-  text-align: center; 
-}
-
-.header {
-  margin-bottom: 20px; 
-}
-
-.upload-section {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 100px; 
-  border-radius: 10px;
-  display: flex; 
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
-  justify-content: center; 
-  max-width: 500px;
-  width: 100%; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  transition: transform 0.3s ease; 
+  min-height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.upload-section:hover {
-  transform: scale(1.05);
-}
-  
-.upload-section label {
-  display: block;
+.header-container {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.upload-section input[type="file"] {
-  margin-bottom: 20px;
+.content-container {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  position: relative;
+  width: 80%;
+  margin-top: 20px;
+  background-color: #E7DEEC;
 }
 
-.upload-section button {
-  background-color: #5c4ac7;
+.upload-resume-container {
+  background-image: url('./uploadBackground.jpg'); 
+  background-size: cover; /* Ensure the image covers the entire container */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  background-position: center; /* Center the background image */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 70%; /* Adjusted width */
+  flex: none; /* This will remove the flex-grow behavior */
+  min-height: 80vh; /* Set a minimum height */
+}
+
+.color-square {
+  background-color: #B999D9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  flex: 1;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.account-name {
+  margin: 0;
+}
+
+.signout {
+  background: none;
+  border: none;
+  color: #000;
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.signout:hover {
+  text-decoration: underline;
+}
+
+.tabs-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.tabs {
+  display: flex;
+  padding-left: 0;
+}
+
+.tabs button {
+  padding: 12px 24px;
+  margin-right: 10px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.tabs button.active {
+  background-color: #ddd;
+  border-color: blue;
+  font-weight: bold;
+}
+
+.tab-content {
+  background-color: #E7DEEC; /* Set background color for tab content */
+}
+
+.file-input-container input[type="file"] {
+  font-size: 20px; /* Increase the font size of the file input */
+}
+
+.tab-content button {
+  background-color: #8A2BE2; /* Purple background for the upload button */
   color: white;
   padding: 10px 20px;
+  font-size: 20px; /* Increased font size for better visibility */
+  display: block; /* Ensure it's on a new line */
+  margin-top: 10px; /* Space above the button */
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.upload-section button:hover {
-  background-color: #4a3b99;
-  transform: scale(1.1); 
+.input-prompt {
+  font-size: 20px; /* Font size for the input field in Tab 2 */
 }
 
-
-label[for="resume-upload"] {
-  font-size: 26px;
+.prompt-list {
+  padding: 20px; /* Padding around the list of prompts */
 }
 
-
-input[type="file"]#resume-upload {
-  font-size: 20px;
-  padding: 10px 15px;
-  margin: 20px 0;
-}
-
-button {
-  font-size: 20px;
-  padding: 15px 30px;
-  height: 50px;
-  width: 150px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #4a3b99;
-}
-
-.headerTitle1 {
-  font-size: 36px; /* Adjust the size as needed */
-}
-
-.secondaryTitle2 {
-  font-size: 1.5em; /* Adjust the size as needed */
+.prompt-list li {
+  padding: 5px 0; /* Padding for each list item */
 }
