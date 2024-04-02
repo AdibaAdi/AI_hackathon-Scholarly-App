@@ -28,7 +28,7 @@ function Login () {
       .then((result) => {
         if(result === 200){
           localStorage.setItem("username",inputtedUsername);
-        window.location.replace("../");
+        window.location.replace("/UploadPage");
         }
       })
       .catch((error) => console.error(error));
