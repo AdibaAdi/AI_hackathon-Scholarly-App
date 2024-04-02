@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Register from './pages/loginUI/Register';
+import UploadPage from './pages/UploadPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 
@@ -14,6 +15,7 @@ function App() {
         <Route path="/">
           <Route index element={<Login />} />
           <Route path="Register" element={<Register />} />
+          <Route path="UploadPage" element={<UploadPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
