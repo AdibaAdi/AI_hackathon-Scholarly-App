@@ -22,14 +22,11 @@ mongoose.connect(mongoDB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 
 // Import routes
 const userRoutes = require('./routes/userRoutes');
+const aiRoutes = require('./routes/aiRoutes');
 
 // Use routes
 app.use('/api/users', userRoutes);
-
-// Example route
-app.get("/getData", (req, res) => {
-  res.send("Hello");
-});
+app.use('/api/ai', aiRoutes);
 
 // Start server
 const PORT = process.env.PORT || 8000;
