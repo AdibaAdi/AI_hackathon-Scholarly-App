@@ -8,11 +8,12 @@
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.2",
+    "openai": "^4.32.1",
     "react": "^18.2.0",
+    "readline": "^1.3.0",
     "validator": "^13.11.0"
   },
-  "name": "hackswift2024",
-  "description": "Welcome to SmartPantry! It's a revolutionary meal planning application designed to transform your meal planning experience. SmartPantry is  a comprehensive tool aimed at reducing food waste, teaching the correct methods of food storage, and inspiring users to create delicious meals tailored to their tastes and preferences. SmartPantry is a great assist for go-to for meal planning, recipe creation, and food storage tips.",
+  "name": "ai_hack",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -20,15 +21,11 @@
     "dev": "nodemon app.js"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AdibaAdi/SmartPantry-MealPlanning.git"
+    "type": "git"
   },
   "author": "Adiba AKter",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AdibaAdi/SmartPantry-MealPlanning/issues"
-  },
-  "homepage": "https://github.com/AdibaAdi/SmartPantry-MealPlanning#readme",
+  "bugs": {},
   "jest": {
     "testEnvironment": "node"
   },
