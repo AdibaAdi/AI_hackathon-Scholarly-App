@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './uploadPage/UploadPage.css';
 import profilePic from './uploadPage/pfp.png';
-import bannerImage from './uploadPage/Banner.png';
+import banner2Image from './uploadPage/Banner2.png';
 
 const UploadPage = () => {
   const [activeTab, setActiveTab] = useState('tab1');
@@ -37,7 +37,7 @@ const UploadPage = () => {
     <div className="container">
       <div className="header-container">
       </div>
-      <img src={bannerImage} alt="Welcome Banner" className="banner-image" />
+      <img src={banner2Image} alt="Welcome Banner" className="banner-image" />
       <div className="content-container">
         <div className="tabs-container">
           <div className="tabs">
