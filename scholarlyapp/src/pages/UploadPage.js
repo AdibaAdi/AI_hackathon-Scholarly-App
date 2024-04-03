@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import './uploadPage/UploadPage.css';
 import profilePic from './uploadPage/pfp.png';
+import UploadResume from './uploadPage/UploadResume.png';
 import banner2Image from './uploadPage/Banner2.png';
+import fileIcon from './uploadPage/fileIcon.png';
 
 const UploadPage = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   const [profileImage, setProfileImage] = useState(profilePic);
   const [prompt, setPrompt] = useState('');
-  const [prompts, setPrompts] = useState([]); // State to keep track of prompts
+  const [prompts, setPrompts] = useState([]);
+  const [uploadedFiles, setUploadedFiles] = useState([]);
 
-  const handleUpload = (event) => {
-    console.log(event.target.files);
+  const handleUploadFiles = (event) => {
+    const files = event.target.files;
+    if (files.length) {
+      const newFileNames = Array.from(files).map(file => file.name);
+      setUploadedFiles(currentFiles => [...currentFiles, ...newFileNames]);
+    }
   };
 
   const handleProfilePicUpload = (event) => {
@@ -29,13 +36,14 @@ const UploadPage = () => {
   };
 
   const handleSubmit = () => {
-    setPrompts(currentPrompts => [...currentPrompts, prompt]); // Add the new prompt to the list
-    setPrompt(''); // Clear the input field
+    setPrompts(currentPrompts => [...currentPrompts, prompt]);
+    setPrompt('');
   };
 
   return (
     <div className="container">
       <div className="header-container">
+        {/* Header content can go here */}
       </div>
       <img src={banner2Image} alt="Welcome Banner" className="banner-image" />
       <div className="content-container">
@@ -51,12 +59,21 @@ const UploadPage = () => {
         </div>
         <div className="upload-resume-container">
           {activeTab === 'tab1' && (
-            <div className="tab-content">
-              <h2 style={{fontSize: '64px'}}>Upload your resume here</h2>
-              <input type="file" id="resume-upload" name="resume" onChange={handleUpload} />
-              <button type="button" onClick={() => document.getElementById('resume-upload').click()}>
+            <div className="tab1-content">
+              <img src={UploadResume} alt="Upload Resume" className="upload-resume-image" />
+              <h2>Upload your resume here</h2>
+              <input type="file" id="resume-upload" name="resume" multiple onChange={handleUploadFiles} />
+              <button type="button" onClick={() => document.getElementById('resume-upload').click()} style={{backgroundColor: '#3663D9', color: 'white', border: 'none'}}>
                 Upload
               </button>
+              <div className="uploaded-files-container">
+                {uploadedFiles.map((fileName, index) => (
+                  <div key={index} className="uploaded-file-item">
+                    <img src={fileIcon} alt="File" className="uploaded-file-icon" />
+                    <span className="uploaded-file-name">{fileName}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           {activeTab === 'tab2' && (
@@ -68,7 +85,7 @@ const UploadPage = () => {
                   type="text" 
                   value={prompt}
                   onChange={handlePromptChange}
-                  placeholder="Enter A prompt" 
+                  placeholder="Enter a prompt" 
                 />
                 <button 
                   onClick={handleSubmit}
@@ -87,9 +104,8 @@ const UploadPage = () => {
         </div>
         <div className="color-square">
           <div className="profile-header">
-            <label htmlFor="profile-upload">
-              <img src={profileImage} alt="Profile" className="profile-pic" />
-            </label>
+            <img src={profileImage} alt="Profile" className="profile-pic" />
+            <h2 className="account-name">Account Name</h2>
             <input
               type="file"
               id="profile-upload"
@@ -98,10 +114,21 @@ const UploadPage = () => {
               onChange={handleProfilePicUpload}
               accept="image/*"
             />
-            <h2 className="account-name">Account Name</h2>
+            <button
+              className="profile-upload-btn"
+              onClick={() => document.getElementById('profile-upload').click()}
+            >
+              Upload New Profile Picture
+            </button>
             <button className="signout" type="button">
               Sign out
             </button>
+            <h3>Recent Uploads</h3>
+            <div className="Recent-Uploads recent-uploads-container">
+              {uploadedFiles.map((fileName, index) => (
+                <div key={index} className="uploaded-file-name">{fileName}</div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

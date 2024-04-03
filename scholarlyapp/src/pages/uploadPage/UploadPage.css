@@ -31,14 +31,10 @@ body, html {
   position: relative;
   width: 80%;
   margin-top: 20px;
-  background-color: #E7DEEC;
+  background-color: #DEDEDE;
 }
 
 .upload-resume-container {
-  background-image: url('./uploadBackground.jpg'); 
-  background-size: cover; /* Ensure the image covers the entire container */
-  background-repeat: no-repeat; /* Prevent the image from repeating */
-  background-position: center; /* Center the background image */
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -50,7 +46,7 @@ body, html {
 }
 
 .color-square {
-  background-color: #814AB9;
+  background-color: #B26EF7;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -61,6 +57,21 @@ body, html {
   height: auto; 
 }
 
+.profile-upload-btn {
+  background-color: #3663D9; /* Match your theme */
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-top: 20px; /* Space above the button */
+  border-radius: 5px; /* Optional: Adds rounded corners */
+}
+
+.profile-upload-btn:hover {
+  background-color: #2a4ca0; /* Slightly darker on hover */
+}
+
+/* Adjust .profile-pic position if necessary */
 .profile-header {
   display: flex;
   flex-direction: column;
@@ -69,23 +80,19 @@ body, html {
 }
 
 .profile-pic {
-  width: 100px;
-  height: 100px;
-  border-radius: 0;
-  cursor: pointer;
-  position: absolute; 
-  top: 30px; 
-  left: 30px; 
+  /* Adjust the size as necessary */
+  width: 300px;
+  height: 300px;
+  border-radius: 50%; /* Circular image */
+  cursor: auto; /* Not a button anymore */
+  margin-bottom: 10px; /* Add space below the image */
 }
 
 .account-name {
   margin: 0;
-  position: absolute; 
-  top: 70px; 
-  left: 150px;
   font-size: 36px; 
-  
 }
+
 
 .signout {
   background: none;
@@ -98,6 +105,7 @@ body, html {
   top: 105px; 
   left: 200px;
   font-size: 30px; 
+  order: 3; /* Moves the 'Sign out' button below the upload button */
 }
 
 .signout:hover {
@@ -134,9 +142,37 @@ body, html {
   border-bottom: 10px solid #814AB9; /* Adds a purple line under the button */
 }
 
-.tab-content {
-  background-color: #E7DEEC; /* Set background color for tab content */
+.tab1-content {
+  text-align: left; /* Aligns text to the left */
+  display: flex; /* Makes .tab-content a flex container */
+  flex-direction: column; /* Stacks child elements vertically */
+  align-items: flex-start; /* Aligns children to the start (left) of the container */
+  margin: 0 auto 20px; /* Centers the content and adds some space below it */
+  /* border: 2px solid #000; */ /* This line is commented out to remove the border */
+  padding: 20px; /* Adds padding inside the container */
 }
+
+.tab1-content h2 {
+  font-size: 36px; /* Specifically makes <h2> tags bigger than the base font size */
+  margin-top: 0; /* Ensures there's no margin at the top pushing it down */
+  margin-left: 0; /* Ensures there's no margin on the left pushing it right */
+  align-self: flex-start; /* This ensures the element aligns to the start if needed, though should be redundant with align-items on the parent */
+}
+
+
+.tab1-content input, .tab1-content button {
+  font-size: 20px; /* Adjusts the font size for input and button elements specifically */
+  padding: 15px 20px; /* Increases padding to make elements physically larger */
+}
+
+.upload-resume-image {
+  width: 200px; /* Or whatever size you've decided on */
+  height: auto; /* Maintains the aspect ratio */
+  display: block;
+  margin: 0 auto 20px; 
+
+}
+
 
 .file-input-container input[type="file"] {
   font-size: 20px; /* Increase the font size of the file input */
@@ -170,4 +206,40 @@ body, html {
   width: 80%;
   height: auto; 
   object-fit: cover; 
+}
+
+
+.uploaded-files-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.uploaded-file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.uploaded-file-icon {
+  width: 24px; /* Adjust size as needed */
+  height: auto;
+}
+
+.uploaded-file-name:hover  {
+  text-decoration: underline;
+}
+
+
+/* UploadPage.css */
+
+.recent-uploads-container {
+  background-color: #DEDEDE; /* Light gray background */
+  padding: 20px; /* Example padding; adjust as needed */
+  margin-top: 30px 0; /* Optional: Adds some space above and below the section */
+  border-radius: 5px; /* Optional: Adds rounded corners */
 }
