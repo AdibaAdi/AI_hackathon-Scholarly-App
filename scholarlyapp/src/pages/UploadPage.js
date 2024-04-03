@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './uploadPage/UploadPage.css';
 import profilePic from './uploadPage/pfp.png';
+import bannerImage from './uploadPage/Banner.png';
 
 const UploadPage = () => {
   const [activeTab, setActiveTab] = useState('tab1');
@@ -36,8 +37,7 @@ const UploadPage = () => {
     <div className="container">
       <div className="header-container">
       </div>
-              <h1>Welcome to Scholarly App</h1>
-        <h2>Your ultimate</h2>
+      <img src={bannerImage} alt="Welcome Banner" className="banner-image" />
       <div className="content-container">
         <div className="tabs-container">
           <div className="tabs">
@@ -64,6 +64,7 @@ const UploadPage = () => {
               <h2 style={{fontSize: '64px'}}>Ask a Question</h2>
               <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
                 <input 
+                  className = "input-prompt"
                   type="text" 
                   value={prompt}
                   onChange={handlePromptChange}
@@ -71,7 +72,7 @@ const UploadPage = () => {
                 />
                 <button 
                   onClick={handleSubmit}
-                  style={{backgroundColor: '#8A2BE2', color: 'white', border: 'none'}}
+                  style={{backgroundColor: '#3663D9', color: 'white', border: 'none'}}
                 >
                   Submit
                 </button>
