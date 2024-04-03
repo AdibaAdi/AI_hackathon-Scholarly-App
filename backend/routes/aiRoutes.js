@@ -3,7 +3,7 @@ const router = express.Router();
 const aiController = require('../controllers/aiController');
 
 // Route for posting request and returning response
-router.get('/req', aiController.req);
+router.post('/req', aiController.req);
 
 // Route for getting response
 // router.get('/getResponse', userController.getUserProfile);
