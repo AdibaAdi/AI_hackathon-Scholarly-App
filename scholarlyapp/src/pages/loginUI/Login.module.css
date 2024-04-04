@@ -1,11 +1,11 @@
 .loginWrapper{
-    background: url(../assets/LoginBC.jpg) no-repeat center center fixed; 
+    background: url(../assets/LoginBC.png) no-repeat center center fixed; 
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     width:100vw;
     height:100vh;
-    
+
 }
 .loginBox {
     position: absolute;
@@ -37,7 +37,7 @@
     font-size: 50px;
     margin: 0px;
     margin-top: 15px;
-    color: rgb(141, 49, 180);
+    color: rgb(12, 85, 94);
 }
 .loginText{
     justify-content:center;
@@ -64,7 +64,7 @@
     padding: 8px;
     border-width: 3px;
     border-color: black;
-    background-color: rgb(141, 49, 180);
+    background-color: rgb(111, 177, 187);
 }
 .registerButton{
     font-family: Arial, Helvetica, sans-serif;
