@@ -9,8 +9,6 @@ import IconResume from './uploadPage/IconResume.png';
 const UploadPage = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   const [profileImage, setProfileImage] = useState(profilePic);
-  const [prompt, setPrompt] = useState('');
-  const [prompts, setPrompts] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   const handleUploadFiles = (event) => {
@@ -28,13 +26,13 @@ const UploadPage = () => {
     reader.addEventListener('load', (e) => {
       const data = e.target.result;
 
-      
+
       const myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
 
       const raw = JSON.stringify({
         "resume": data,
-        "scholarship_list":""
+        "scholarship_list": ""
       });
 
       const requestOptions = {
@@ -55,20 +53,11 @@ const UploadPage = () => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = function (e) {
         setProfileImage(e.target.result);
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handlePromptChange = (event) => {
-    setPrompt(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    setPrompts(currentPrompts => [...currentPrompts, prompt]);
-    setPrompt('');
   };
 
   return (
@@ -94,7 +83,7 @@ const UploadPage = () => {
               <img src={IconResume} alt="Upload Resume" className="upload-resume-image" />
               <h2>Upload your resume/CV here</h2>
               <input type="file" id="resume-upload" name="resume" multiple onChange={handleUploadFiles} />
-              <button type="button" className="upButton" onClick={() => document.getElementById('resume-upload').click()} style={{backgroundColor: '#3663D9', color: 'white', border: 'none'}}>
+              <button type="button" className="upButton" onClick={() => document.getElementById('resume-upload').click()} style={{ backgroundColor: '#3663D9', color: 'white', border: 'none' }}>
                 Upload
               </button>
             </div>
@@ -110,27 +99,7 @@ const UploadPage = () => {
                   </div>
                 )) : <p>No files uploaded.</p>}
               </div>
-              <h2 style={{marginTop: '20px'}}>Ask a Question</h2>
-              <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
-                <input 
-                  className="input-prompt"
-                  type="text" 
-                  value={prompt}
-                  onChange={handlePromptChange}
-                  placeholder="Enter a prompt" 
-                />
-                <button 
-                  onClick={handleSubmit}
-                  style={{backgroundColor: '#3663D9', color: 'white', border: 'none'}}
-                >
-                  Submit
-                </button>
-              </div>
-              <ul>
-                {prompts.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+
             </div>
           )}
         </div>
@@ -164,13 +133,13 @@ const UploadPage = () => {
             </button>
             <h3>Recent Uploads</h3>
             <div className="uploaded-files-container">
-                {uploadedFiles.map((fileName, index) => (
-                  <div key={index} className="uploaded-file-item">
-                    <img src={fileIcon} alt="File" className="uploaded-file-icon" />
-                    <span className="uploaded-file-name">{fileName}</span>
-                  </div>
-                ))}
-              </div>
+              {uploadedFiles.map((fileName, index) => (
+                <div key={index} className="uploaded-file-item">
+                  <img src={fileIcon} alt="File" className="uploaded-file-icon" />
+                  <span className="uploaded-file-name">{fileName}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
