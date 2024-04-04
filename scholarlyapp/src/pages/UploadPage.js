@@ -21,6 +21,34 @@ const UploadPage = () => {
       // Automatically switch to the "See Matches!" tab after files are uploaded
       setActiveTab('tab2');
     }
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.readAsText(file);
+    //triggers when the file is saved as text
+    reader.addEventListener('load', (e) => {
+      const data = e.target.result;
+
+      
+      const myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/json");
+
+      const raw = JSON.stringify({
+        "resume": data,
+        "scholarship_list":""
+      });
+
+      const requestOptions = {
+        method: "POST",
+        headers: myHeaders,
+        body: raw,
+        redirect: "follow"
+      };
+
+      fetch("http://localhost:8000/api/ai/req", requestOptions)
+        .then((response) => response.text())
+        .then((result) => console.log(result))
+        .catch((error) => console.error(error));
+    });
   };
 
   const handleProfilePicUpload = (event) => {

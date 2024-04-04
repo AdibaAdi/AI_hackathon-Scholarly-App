@@ -8,20 +8,27 @@ const openai = new OpenAI({
 // ai request fxn
 exports.req = async (req, res) => {
 
-  const { requestText } = req.body;
+  var requestText = req.body;
 
-  /* 
-  
-  Put the open ai commands here. We have 
-  to create a new thread, add a message, 
-  run the thread, wait until the run is 
-  complete, then send the response to the 
-  thread back to the user
+  const { spawn } = require('child_process');
 
-  Alternatively we could make a separate route to get the run after it completes, meaning the user would have to press a separate button?
+  const pythonProcess = spawn('python', ['./scraper.py']);
 
-  */
+  await new Promise((resolve, reject) => {
+    pythonProcess.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
+      requestText.scholarship_list = `${data}`;
+    });
 
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+    });
+
+    pythonProcess.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+      resolve();
+    });
+  });
   //retrieve our assistant
   const assistant = await openai.beta.assistants.retrieve('asst_JlMIJGvXHHbYRd2eXh1YNmys');
 
@@ -29,16 +36,18 @@ exports.req = async (req, res) => {
   const thread = await openai.beta.threads.create();
 
   //new message
+  console.log('new message creation');
   const message = await openai.beta.threads.messages.create(thread.id, {
     role: "user",
-    content: requestText
+    content: "The following is my resume followed by a list of scholarships offered: " + requestText.resume + "\n\nScholarhship List:\n\n" + requestText.scholarship_list
   })
 
+  console.log('new run creation');
   const run = await openai.beta.threads.runs.create(thread.id, {
     assistant_id: assistant.id
   })
 
-  console.log('waiting for completion');
+  console.log('waiting for openai run completion');
   //stays in loop until thread is complete
   complete = await openai.beta.threads.runs.retrieve(thread.id, run.id);
   while(complete.status != 'completed'){

@@ -122,7 +122,7 @@ exports.login = async (req, res) => {
           id: user.id // User's unique ID from the database
         }
       };
-  
+
       // Generate a JWT token with the payload, secret key, and set expiration
       jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
         if (err) throw err;
