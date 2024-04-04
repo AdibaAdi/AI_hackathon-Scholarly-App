@@ -5,15 +5,14 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
 });
 
-// ai request fxn
+// AI request function
 exports.req = async (req, res) => {
-
   var requestText = req.body;
 
   const { spawn } = require('child_process');
-
   const pythonProcess = spawn('python', ['./scraper.py']);
 
+  // Await for the scraper to finish and update the requestText with the scholarship list
   await new Promise((resolve, reject) => {
     pythonProcess.stdout.on('data', (data) => {
       console.log(`stdout: ${data}`);
@@ -29,44 +28,50 @@ exports.req = async (req, res) => {
       resolve();
     });
   });
-  //retrieve our assistant
+
+  // Retrieve the assistant
   const assistant = await openai.beta.assistants.retrieve('asst_JlMIJGvXHHbYRd2eXh1YNmys');
 
-  //thread setup
+  // Setup the thread
   const thread = await openai.beta.threads.create();
 
-  //new message
-  console.log('new message creation');
-  const message = await openai.beta.threads.messages.create(thread.id, {
+  // Create a message for the resume
+  console.log('Creating new message for resume');
+  await openai.beta.threads.messages.create(thread.id, {
     role: "user",
-    content: "The following is my resume followed by a list of scholarships offered: " + requestText.resume + "\n\nScholarhship List:\n\n" + requestText.scholarship_list
-  })
+    content: "The following is my resume: " + requestText.resume
+  });
 
-  console.log('new run creation');
+  // Create a message for the scholarship list
+  console.log('Creating new message for scholarship list');
+  await openai.beta.threads.messages.create(thread.id, {
+    role: "user",
+    content: "Scholarship List:\n\n" + requestText.scholarship_list
+  });
+
+  // Initiate the processing run after both messages are added to ensure they're considered together
+  console.log('Initiating run to process both resume and scholarship list');
   const run = await openai.beta.threads.runs.create(thread.id, {
     assistant_id: assistant.id
-  })
+  });
 
-  console.log('waiting for openai run completion');
-  //stays in loop until thread is complete
-  complete = await openai.beta.threads.runs.retrieve(thread.id, run.id);
-  while(complete.status != 'completed'){
+  console.log('Waiting for OpenAI run completion');
+  // Stay in the loop until the thread processing is complete
+  let complete = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+  while (complete.status !== 'completed') {
     complete = await openai.beta.threads.runs.retrieve(thread.id, run.id);
   }
-  console.log('complete');
+  console.log('Processing complete');
 
-  //this is test code displaying an old thread just to make sure it was working, it can be commented out.
+  // Optional: Display messages from the thread
   const messages = await openai.beta.threads.messages.list(thread.id);
-  messages.body.data.forEach((message) => console.log(message.content))
+  messages.body.data.forEach((message) => console.log(message.content));
 
   try {
-    //if (err) throw err;
-
-    //we have to put the response in a variable and pass it to the user here
+    // Send the processed information back to the user
     res.status(201).json({ messages });
   } catch (err) {
-    // Log and return any server errors
-    //console.error(err.message);
+    console.error(err.message);
     res.status(500).send('Server error');
   }
 };
