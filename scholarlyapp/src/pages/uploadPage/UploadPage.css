@@ -31,7 +31,11 @@ body, html {
   position: relative;
   width: 80%;
   margin-top: 20px;
-  background-color: #DEDEDE;
+  background-color: hsl(184, 42%, 93%);
+  border-top-left-radius: 20px; /* Adjust the radius as needed */
+  border-bottom-left-radius: 20px; /* Adjust the radius as needed */
+  border-top-right-radius: 20px; /* Adjust the radius as needed */
+  border-bottom-right-radius: 20px; /* Adjust the radius as needed */
 }
 
 .upload-resume-container {
@@ -46,7 +50,7 @@ body, html {
 }
 
 .color-square {
-  background-color: #B26EF7;
+  background-color: hsl(183, 49%, 84%);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -55,6 +59,8 @@ body, html {
   flex: 1;
   width: 100%;
   height: auto; 
+  border-top-right-radius: 20px; /* Adjust the radius as needed */
+  border-bottom-right-radius: 20px; /* Adjust the radius as needed */
 }
 
 .profile-upload-btn {
@@ -97,12 +103,12 @@ body, html {
 .signout {
   background: none;
   border: none;
-  color: #002FA7;
+  color: hwb(172 1% 61%);
   padding: 10px;
   cursor: pointer;
   text-decoration: none;
   position: absolute; 
-  top: 105px; 
+  top: 3px; 
   left: 200px;
   font-size: 30px; 
   order: 3; /* Moves the 'Sign out' button below the upload button */
@@ -127,20 +133,26 @@ body, html {
 .tabs button {
   padding: 12px 24px;
   margin-right: 10px;
-  font-size: 3em;
+  font-size: 2em;
   border-radius: 5px;
   background-color: transparent;
   cursor: pointer;
   border: none; /* This removes the border */
+  /* Remove underline from here */
+  /* Add transition for smooth effect */
+  transition: border-bottom 0.3s;
 }
 
-.tabs button.active {
+.tabs button.active, .tabs button:hover {
   font-weight: bold;
+  border-bottom: 10px solid hwb(172 1% 61%); /* This adds a purple line under the button for active or hover states */
 }
 
-.tabs button:hover {
-  border-bottom: 10px solid #814AB9; /* Adds a purple line under the button */
+/* Ensures that only the active tab keeps the underline when not hovered */
+.tabs button:not(.active):hover {
+  border-bottom: 10px solid hwb(172 1% 61%); /* Lighter or different color if you want a distinction between hover and active */
 }
+
 
 .tab1-content {
   text-align: left; /* Aligns text to the left */
@@ -187,6 +199,7 @@ body, html {
   margin-top: 10px; /* Space above the button */
   border: none;
   cursor: pointer;
+  
 }
 
 .input-prompt {
@@ -243,3 +256,19 @@ body, html {
   margin-top: 30px 0; /* Optional: Adds some space above and below the section */
   border-radius: 5px; /* Optional: Adds rounded corners */
 }
+
+.upButton {
+  background-color: #3663D9; /* Blue background */
+  color: white; /* White text */
+  border: none; /* No border */
+  padding: 10px 20px; /* Padding for size */
+  margin-left: 20px;
+  border-radius: 10px; /* Adjust this value for desired roundness */
+  cursor: pointer; /* Hand cursor on hover */
+  display: flex; /* For aligning the icon and text */
+  align-items: center; /* Align items vertically */
+  justify-content: center; /* Center content horizontally */
+  gap: 10px; /* Space between the icon and text */
+}
+
+
