@@ -8,15 +8,15 @@ require("dotenv").config();
 // Initialize express app
 const app = express();
 
-// Enable CORS and JSON parsing middleware
+// Enable CORS and JSON parsing middleware with increased limit
 app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' })); // Set limit for JSON bodies
+app.use(bodyParser.json({ limit: '10mb' })); // Adjusted for bodyParser as well
+app.use(express.urlencoded({ extended: true, limit: '10mb' })); // Set limit for URL-encoded bodies
 
-// Connect to MongoDB
+// Connect to MongoDB without deprecated options
 const mongoDB_URI = process.env.MONGODB_URI;
-mongoose.connect(mongoDB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoDB_URI)
   .then(() => console.log('MongoDB connected...'))
   .catch(err => console.error(err));
 
