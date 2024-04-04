@@ -31,9 +31,21 @@ const UploadPage = () => {
     if (files.length) {
       const newFileNames = Array.from(files).map(file => file.name);
       setUploadedFiles(currentFiles => [...currentFiles, ...newFileNames]);
-      setActiveTab('tab2'); // Switch to "See Matches!" tab
+      setActiveTab('tab2'); 
+      Array.from(files).forEach(file => {
+        const reader = new FileReader();
+  
+        reader.onload = (e) => {
+          console.log(`Content of ${file.name}:`, e.target.result);
+        };
+  
+        reader.onerror = (e) => {
+          console.error(`Failed to read ${file.name}`, e.target.error);
+        };
+
+        reader.readAsText(file);
+      });
     }
-    // You might want to include additional logic here for uploading files to the backend
   };
 
   const handleProfilePicUpload = (event) => {
