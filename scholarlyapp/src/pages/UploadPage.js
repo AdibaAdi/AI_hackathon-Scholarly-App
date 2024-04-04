@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './uploadPage/UploadPage.css';
 import profilePic from './uploadPage/pfp.png';
 import UploadResume from './uploadPage/UploadResume.png';
@@ -12,43 +12,28 @@ const UploadPage = () => {
   const [prompt, setPrompt] = useState('');
   const [prompts, setPrompts] = useState([]);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [userName, setUserName] = useState('');
+
+  // Use useEffect to retrieve and set the user name from localStorage
+  useEffect(() => {
+    const name = localStorage.getItem('username');
+    if (name) {
+      setUserName(name);
+      console.log("Current userName state:", userName);
+
+    } else {
+      console.log("user_name not found in localStorage");
+    }
+  }, []);
 
   const handleUploadFiles = (event) => {
     const files = event.target.files;
     if (files.length) {
       const newFileNames = Array.from(files).map(file => file.name);
       setUploadedFiles(currentFiles => [...currentFiles, ...newFileNames]);
-      // Automatically switch to the "See Matches!" tab after files are uploaded
-      setActiveTab('tab2');
+      setActiveTab('tab2'); // Switch to "See Matches!" tab
     }
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.readAsText(file);
-    //triggers when the file is saved as text
-    reader.addEventListener('load', (e) => {
-      const data = e.target.result;
-
-      
-      const myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      const raw = JSON.stringify({
-        "resume": data,
-        "scholarship_list":""
-      });
-
-      const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-      };
-
-      fetch("http://localhost:8000/api/ai/req", requestOptions)
-        .then((response) => response.text())
-        .then((result) => console.log(result))
-        .catch((error) => console.error(error));
-    });
+    // You might want to include additional logic here for uploading files to the backend
   };
 
   const handleProfilePicUpload = (event) => {
@@ -67,14 +52,22 @@ const UploadPage = () => {
   };
 
   const handleSubmit = () => {
-    setPrompts(currentPrompts => [...currentPrompts, prompt]);
-    setPrompt('');
+    if (prompt.trim() !== '') {
+      setPrompts(currentPrompts => [...currentPrompts, prompt]);
+      setPrompt('');
+    }
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem('username');
+    // Redirect to home or login page
+    window.location.href = '/';
   };
 
   return (
     <div className="container">
       <div className="header-container">
-        {/* Header content can go here */}
+        {/* Header can include navigation or branding */}
       </div>
       <img src={banner2Image} alt="Welcome Banner" className="banner-image" />
       <div className="content-container">
@@ -110,34 +103,14 @@ const UploadPage = () => {
                   </div>
                 )) : <p>No files uploaded.</p>}
               </div>
-              <h2 style={{marginTop: '20px'}}>Ask a Question</h2>
-              <div style={{display: 'flex', gap: '10px', alignItems: 'center'}}>
-                <input 
-                  className="input-prompt"
-                  type="text" 
-                  value={prompt}
-                  onChange={handlePromptChange}
-                  placeholder="Enter a prompt" 
-                />
-                <button 
-                  onClick={handleSubmit}
-                  style={{backgroundColor: '#3663D9', color: 'white', border: 'none'}}
-                >
-                  Submit
-                </button>
-              </div>
-              <ul>
-                {prompts.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
+              {/* Additional content for tab2 */}
             </div>
           )}
         </div>
         <div className="color-square">
           <div className="profile-header">
             <img src={profileImage} alt="Profile" className="profile-pic" />
-            <h2 className="account-name">Account Name</h2>
+            <h2 className="account-name">{userName}</h2>
             <input
               type="file"
               id="profile-upload"
@@ -159,7 +132,7 @@ const UploadPage = () => {
               <img src={UploadResume} alt="Upload" style={{ width: '24px', height: '24px' }} />
               Upload New Profile Picture
             </button>
-            <button className="signout" type="button">
+            <button className="signout" type="button" onClick={handleSignOut}>
               Sign out
             </button>
             <h3>Recent Uploads</h3>
