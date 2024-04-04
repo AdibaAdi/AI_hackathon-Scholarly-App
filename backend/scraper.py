@@ -80,9 +80,9 @@ async def start_scraping(start_url):
             scholarships_text_data += scholarship_details
 
         # Save the data to a text file
-        with open(output_file_path, 'w', encoding='utf-8') as file:
-            file.write(scholarships_text_data)
-        print(f"Data saved to {output_file_path}")
+        ##with open(output_file_path, 'w', encoding='utf-8') as file:
+        ##    file.write(scholarships_text_data)
+        ##print(f"Data saved to {output_file_path}")
 
     return scholarships_text_data  # Return the accumulated text data
 
