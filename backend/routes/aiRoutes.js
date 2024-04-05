@@ -5,6 +5,9 @@ const aiController = require('../controllers/aiController');
 // Route for posting request and returning response
 router.post('/req', aiController.req);
 
+// Route for posting request and returning response
+router.post('/prompt', aiController.prompt);
+
 // Route for getting response
 // router.get('/getResponse', userController.getUserProfile);
 

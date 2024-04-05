@@ -67,13 +67,51 @@ exports.req = async (req, res) => {
   // Optional: Display messages from the thread
   const messages = await openai.beta.threads.messages.list(thread.id);
   
-  //messages.body.data.forEach((message) => console.log(message.content));
-  //console.log('--------------------------------------------');
   const response = messages.body.data[0].content;
   console.log(messages.body.data[0].content);
-  // console.log(messages.body.data[1].content);
-  // console.log(messages.body.data[2].content);
-  
+
+  try {
+    // Send the processed information back to the user
+    res.status(201).json({ response });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+};
+
+exports.prompt = async (req, res) => {
+  var promptText = req.body;
+
+  // Retrieve the assistant
+  const assistant = await openai.beta.assistants.retrieve('');
+
+  // Setup the thread
+  const thread = await openai.beta.threads.create();
+
+  await openai.beta.threads.messages.create(thread.id, {
+    role: "user",
+    content: "The following are the questions that the scholarship essay wants you to answer: " + promptText.prompt
+  });
+
+  // Initiate the processing run after both messages are added to ensure they're considered together
+  console.log('Initiating run');
+  const run = await openai.beta.threads.runs.create(thread.id, {
+    assistant_id: assistant.id
+  });
+
+  console.log('Waiting for OpenAI run completion');
+  // Stay in the loop until the thread processing is complete
+  let complete = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+  while (complete.status !== 'completed') {
+    complete = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+  }
+  console.log('Processing complete');
+
+  // Optional: Display messages from the thread
+  const messages = await openai.beta.threads.messages.list(thread.id);
+
+  const response = messages.body.data[0].content;
+  console.log(messages.body.data[0].content);
 
   try {
     // Send the processed information back to the user
