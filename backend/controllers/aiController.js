@@ -47,7 +47,7 @@ exports.req = async (req, res) => {
   console.log('Creating new message for scholarship list');
   await openai.beta.threads.messages.create(thread.id, {
     role: "user",
-    content: "The following is a list of all of the scholarships to try and match with the users resume. These scholarships don't inherently have anything to do with the user, your task is to try to find any that could match with their resume. Note: the NACME scholarship would be good for comp sci students\n\n\n\n" + requestText.scholarship_list
+    content: "The following is a list of all of the scholarships to try and match with the users resume. These scholarships don't inherently have anything to do with the user, your task is to try to find any that could match with their resume.\n\n\n\n" + requestText.scholarship_list
   });
 
   // Initiate the processing run after both messages are added to ensure they're considered together
