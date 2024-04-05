@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './uploadPage/UploadPage.css';
 import profilePic from './uploadPage/pfp.png';
 import UploadResume from './uploadPage/UploadResume.png';
@@ -10,6 +10,19 @@ const UploadPage = () => {
   const [activeTab, setActiveTab] = useState('tab1');
   const [profileImage, setProfileImage] = useState(profilePic);
   const [uploadedFiles, setUploadedFiles] = useState([]);
+  const [userName, setUserName] = useState('');
+  
+
+  useEffect(() => {
+    const name = localStorage.getItem('username');
+    if (name) {
+      setUserName(name);
+      console.log("Current userName state:", userName);
+
+    } else {
+      console.log("user_name not found in localStorage");
+    }
+  }, []);
 
   const handleUploadFiles = (event) => {
     const files = event.target.files;
@@ -58,6 +71,12 @@ const UploadPage = () => {
         })
         .catch((error) => console.error(error));
     });
+  };
+
+  const handleSignOut = () => {
+    localStorage.removeItem('username');
+    // Redirect to home or login page
+    window.location.href = '/';
   };
 
   const handleProfilePicUpload = (event) => {
@@ -118,7 +137,7 @@ const UploadPage = () => {
         <div className="color-square">
           <div className="profile-header">
             <img src={profileImage} alt="Profile" className="profile-pic" />
-            <h2 className="account-name">Account Name</h2>
+            <h2 className="account-name">{userName}</h2>
             <input
               type="file"
               id="profile-upload"
@@ -140,7 +159,7 @@ const UploadPage = () => {
               <img src={UploadResume} alt="Upload" style={{ width: '24px', height: '24px' }} />
               Upload New Profile Picture
             </button>
-            <button className="signout" type="button">
+            <button className="signout" type="button" onClick={handleSignOut}>
               Sign out
             </button>
             <h3>Recent Uploads</h3>
