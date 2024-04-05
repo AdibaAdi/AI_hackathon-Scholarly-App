@@ -44,7 +44,18 @@ const UploadPage = () => {
 
       fetch("http://localhost:8000/api/ai/req", requestOptions)
         .then((response) => response.text())
-        .then((result) => console.log(result))
+        .then((result) => {
+          JSON.parse(result);
+          result = result.slice(45);
+          result = result.slice(0,-22);
+
+          //remove extra characters
+          result = result.replace(/\\n/g,"");
+          result = result.replace(/\\r/g,"");
+          result = result.replace("`","");
+          console.log(result);
+          document.getElementById("testText").innerHTML = result;
+        })
         .catch((error) => console.error(error));
     });
   };
@@ -99,7 +110,8 @@ const UploadPage = () => {
                   </div>
                 )) : <p>No files uploaded.</p>}
               </div>
-
+              <h2>Your scholarships:</h2>
+              <div id="testText">Loading... This may take up to a minute.</div>
             </div>
           )}
         </div>

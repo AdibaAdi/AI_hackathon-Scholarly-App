@@ -15,7 +15,7 @@ exports.req = async (req, res) => {
   // Await for the scraper to finish and update the requestText with the scholarship list
   await new Promise((resolve, reject) => {
     pythonProcess.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
+      //console.log(`stdout: ${data}`);
       requestText.scholarship_list = `${data}`;
     });
 
@@ -37,16 +37,17 @@ exports.req = async (req, res) => {
 
   // Create a message for the resume
   console.log('Creating new message for resume');
+  console.log(requestText.resume)
   await openai.beta.threads.messages.create(thread.id, {
     role: "user",
-    content: "The following is my resume: " + requestText.resume
+    content: "The following is the users resume: " + requestText.resume
   });
 
   // Create a message for the scholarship list
   console.log('Creating new message for scholarship list');
   await openai.beta.threads.messages.create(thread.id, {
     role: "user",
-    content: "Scholarship List:\n\n" + requestText.scholarship_list
+    content: "The following is a list of all of the scholarships to try and match with the users resume. These scholarships don't inherently have anything to do with the user, your task is to try to find any that could match with their resume. Note: the NACME scholarship would be good for comp sci students\n\n\n\n" + requestText.scholarship_list
   });
 
   // Initiate the processing run after both messages are added to ensure they're considered together
@@ -65,11 +66,18 @@ exports.req = async (req, res) => {
 
   // Optional: Display messages from the thread
   const messages = await openai.beta.threads.messages.list(thread.id);
-  messages.body.data.forEach((message) => console.log(message.content));
+  
+  //messages.body.data.forEach((message) => console.log(message.content));
+  //console.log('--------------------------------------------');
+  const response = messages.body.data[0].content;
+  console.log(messages.body.data[0].content);
+  // console.log(messages.body.data[1].content);
+  // console.log(messages.body.data[2].content);
+  
 
   try {
     // Send the processed information back to the user
-    res.status(201).json({ messages });
+    res.status(201).json({ response });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
