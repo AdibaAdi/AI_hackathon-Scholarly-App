@@ -30,7 +30,7 @@ exports.req = async (req, res) => {
   });
 
   // Retrieve the assistant
-  const assistant = await openai.beta.assistants.retrieve('asst_JlMIJGvXHHbYRd2eXh1YNmys');
+  const assistant = await openai.beta.assistants.retrieve('asst_Q1H2AQ34rXAXCjjk2GWymBwg');
 
   // Setup the thread
   const thread = await openai.beta.threads.create();
